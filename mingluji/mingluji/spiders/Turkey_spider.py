@@ -3,12 +3,12 @@ import scrapy
 from mingluji.items import MinglujiItem
 from scrapy_redis.spiders import RedisSpider
 
-class TurkeySpiderSpider(scrapy.Spider):
-# class TurkeySpiderSpider(RedisSpider):
+#class TurkeySpiderSpider(scrapy.Spider):
+class TurkeySpiderSpider(RedisSpider):
     name = 'Turkey_spider'
     allowed_domains = ['tur.bizdirlib.com']
-    start_urls = ['http://tur.bizdirlib.com/company?page=2394']
-
+    #start_urls = ['http://tur.bizdirlib.com/company?page=2394']
+    redis_key = "TurkeySpiderSpider:start_urls"
     def parse(self, response):#获取url
         cookies = {
             '__utmz': '21043177.1534837336.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)',
