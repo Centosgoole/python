@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from mingluji.items import MinglujiItem
-from scrapy_redis.spiders import RedisSpider
 
-class TurkeySpiderSpider(scrapy.Spider):
-#class TurkeySpiderSpider(RedisSpider):
-    name = 'Turkey_spider'
-    allowed_domains = ['tur.bizdirlib.com']
-    start_urls = ['http://tur.bizdirlib.com/company?page=2394']
-    #redis_key = "TurkeySpiderSpider:start_urls"
+class UkraineSpiderSpider(scrapy.Spider):
+    name = 'Ukraine_spider'
+    allowed_domains = ['ukr.bizdirlib.com']
+    start_urls = ['http://ukr.bizdirlib.com/company']
+
     def parse(self, response):#获取url
         cookies = {
             '__utmz': '21043177.1534837336.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)',
@@ -23,12 +21,12 @@ class TurkeySpiderSpider(scrapy.Spider):
         }
         url_list = response.xpath('//*[@id="block-system-main"]/div/div/div[2]/div/ul/li')
         for i in range(len(url_list)):
-            link = "https://tur.bizdirlib.com"+str(response.xpath('//*[@id="block-system-main"]/div/div/div[2]/div/ul/li['+str(i)+']/div/span/a/@href').extract_first())
+            link = "https://ukr.bizdirlib.com"+str(response.xpath('//*[@id="block-system-main"]/div/div/div[2]/div/ul/li['+str(i)+']/div/span/a/@href').extract_first())
             yield scrapy.Request(link,callback=self.prase1,cookies=cookies)
         next_link = response.xpath('//*[@id="block-system-main"]/div/div/div[3]/ul/li[3]/a/@href').extract_first()#获取下一页
         if next_link:
             next_link = next_link
-            yield scrapy.Request("https://tur.bizdirlib.com"+next_link,callback=self.parse,cookies=cookies)
+            yield scrapy.Request("https://ukr.bizdirlib.com"+next_link,callback=self.parse,cookies=cookies)
 
     def prase1(self,response):#解析内容
         if response.css('[itemprop="email"]::text').extract_first() !=None:

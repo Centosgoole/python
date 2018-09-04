@@ -107,4 +107,4 @@ REDIS_PORT = '6379'
 #配置分布式
 SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
-SCHEDULER_FLUSH_ON_START = True
+#SCHEDULER_FLUSH_ON_START = True
