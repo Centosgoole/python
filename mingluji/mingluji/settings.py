@@ -108,3 +108,4 @@ REDIS_PORT = '6379'
 SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
 #SCHEDULER_FLUSH_ON_START = True
+SCHEDULER_PERSIST = True
