@@ -2,10 +2,10 @@
 import scrapy
 from mingluji.items import MinglujiItem
 
-class UkraineSpiderSpider(scrapy.Spider):
-    name = 'Ukraine_spider'
-    allowed_domains = ['ukr.bizdirlib.com']
-    start_urls = ['http://ukr.bizdirlib.com/company?page=1430']
+class UnitedSpiderSpider(scrapy.Spider):
+    name = 'United_spider'
+    allowed_domains = ['unitedkingdom.bizdirlib.com']
+    start_urls = ['http://unitedkingdom.bizdirlib.com/company']
 
     def parse(self, response):#获取url
         cookies = {
@@ -21,12 +21,12 @@ class UkraineSpiderSpider(scrapy.Spider):
         }
         url_list = response.xpath('//*[@id="block-system-main"]/div/div/div[2]/div/ul/li')
         for i in range(len(url_list)):
-            link = "https://ukr.bizdirlib.com"+str(response.xpath('//*[@id="block-system-main"]/div/div/div[2]/div/ul/li['+str(i)+']/div/span/a/@href').extract_first())
+            link = "https://unitedkingdom.bizdirlib.com"+str(response.xpath('//*[@id="block-system-main"]/div/div/div[2]/div/ul/li['+str(i)+']/div/span/a/@href').extract_first())
             yield scrapy.Request(link,callback=self.prase1,cookies=cookies)
         next_link = response.xpath('//*[@id="block-system-main"]/div/div/div[3]/ul/li[3]/a/@href').extract_first()#获取下一页
         if next_link:
             next_link = next_link
-            yield scrapy.Request("https://ukr.bizdirlib.com"+next_link,callback=self.parse,cookies=cookies)
+            yield scrapy.Request("https://unitedkingdom.bizdirlib.com"+next_link,callback=self.parse,cookies=cookies)
 
     def prase1(self,response):#解析内容
         if response.css('[itemprop="email"]::text').extract_first() !=None:

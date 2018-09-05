@@ -105,7 +105,6 @@ REDIS_HOST = '192.168.3.224'
 REDIS_PORT = '6379'
 
 #配置分布式
-SCHEDULER = "scrapy_redis.scheduler.Scheduler"
-DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
-#SCHEDULER_FLUSH_ON_START = True
-SCHEDULER_PERSIST = True
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"#Redis调度器
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"#Redis去重
+SCHEDULER_PERSIST = True#不清空记录

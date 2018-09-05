@@ -113,8 +113,9 @@ class getRedis(object):
     def process_request(self,request,spider):
         conn = StrictRedis(host=self.host,port=self.port)
         ip = conn.get('ip').decode('utf-8')
-        request.meta['proxy'] = "http://" + ip
         print(ip)
+        request.meta['proxy'] = "http://" + ip
+
 
 # class Myproxy(object):
 #     def process_request(self,request,spider):
