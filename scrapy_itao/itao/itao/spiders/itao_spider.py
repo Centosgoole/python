@@ -10,23 +10,25 @@ class ItaoSpiderSpider(scrapy.Spider):
     #start_urls = ['https://ru.itao.com/home/ajaxHomePageScreen.htm']
 
     def start_requests(self):
-        page = 0
-        while True:
-            page +=1
-            url = "https://ru.itao.com/home/ajaxHomePageScreen.htm?cateId=42009&view=latest&callback="+callback()+"&page="+str(page)
-            headers = {
-                'method': 'GET',
-                'authority': 'ru.itao.com',
-                'scheme': 'https',
-                'path': '/home/ajaxHomePageScreen.htm?cateId=42004&view=latest&callback=' + callback() + '&page=1',
-                'accept': 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01',
-                'x-requested-with': 'XMLHttpRequest',
-                'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36',
-                'referer': 'https://ru.itao.com/category/42009',
-                'accept-encoding': 'gzip, deflate, br',
-                'accept-language': 'zh-CN,zh;q=0.9'
-            }
-            yield scrapy.FormRequest(url,headers = headers,callback=self.parse)
+        leimu = ['42009','42003','42002','42011','42004','42006','42006','42005','42010','42012','42013','42014','42007','42008','42001','42017']
+        for i in range(len(leimu)):
+            page = 0
+            while page<=600:
+                page +=1
+                url = "https://ru.itao.com/home/ajaxHomePageScreen.htm?cateId={}&view=latest&callback={}&page={}".format(leimu[i],callback(),str(page))
+                headers = {
+                    'method': 'GET',
+                    'authority': 'ru.itao.com',
+                    'scheme': 'https',
+                    'path': '/home/ajaxHomePageScreen.htm?cateId={}&view=latest&callback={}&page={}'.format(leimu[i],callback(),str(page)),
+                    'accept': 'text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01',
+                    'x-requested-with': 'XMLHttpRequest',
+                    'user-agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36',
+                    'referer': 'https://ru.itao.com/category/42009',
+                    'accept-encoding': 'gzip, deflate, br',
+                    'accept-language': 'zh-CN,zh;q=0.9'
+                }
+                yield scrapy.FormRequest(url,headers = headers,callback=self.parse)
 
     def parse(self, response):
         html = response.body
